@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Marriage Smart Contract on Ethereum</title>
+    <!-- Bootstrap/JQuery/SweetAlert -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/sweetalert.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+    </script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
+    </script>
+    <script src="js/sweetalert.min.js">
+    </script>
+    <!-- My JS -->
+    <!-- <script src='js/bignumber.js'></script> -->
+    <script src="ethjs/web3.js">
+    </script>
+    <script src="ethjs/network.js">
+    </script>
+    <script src="ethjs/contracts.js">
+    </script>
+    <script src="js/moment.js"></script>
+    <script src="js/moment-timezone-with-data-2010-2020.js"></script>
+    </script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button class="navbar-toggle collapsed" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <a class="navbar-brand" href="#">Marriage on              Ethereum</a> </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li> <a href="https://www.gitbook.com/book/souptacular/ethereum-tutorials-and-tips-by-hudson/details" target="_blank">                      My Ethereum Tutorials and Resources GitBook</a> </li>
+                    <li> <a href="http://www.hudsonjameson.com" target="_blank">HudsonJameson.com</a> </li>
+                    <li class="active"> <a href="https://github.com/Souptacular/smart_contracts/blob/master/marriage.sol" target="_blank">                      Source<span class="sr-only">(current)</span></a> </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>My Marriage Information via the Ethereum Blockchain</h1>
+                <hr> </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <h3>Connect to Ethereum</h3>
+                <input id="web3Endpoint" type="text" value="http://localhost:8545">
+                <br>
+                <br>
+                <!-- Trigger the modal with a button -->
+                <button class="btn btn-default" onclick="connectToEth();" type="button">Connect to Geth</button>
+                <button class="btn btn-info" data-target="#help" data-toggle="modal" type="button">Need Help?</button>
+                <!-- Modal -->
+                <div class="modal fade" id="help" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button class="close" data-dismiss="modal" type="button">&times;</button>
+                                <h4 class="modal-title">Connecting to Ethereum</h4> </div>
+                            <div class="modal-body">
+                                <p>To connect to Ethereum, you need an Ethereum client running with permissions to view this webpage. Here is an example of a way to start the geth CLI client in order to properly use this site.</p>
+                                <br>
+                                <p><code>geth --rpc --rpcport "8545" --rpcapi "db,eth,net,web3" --rpccorsdomain "http://hudsonjameson.com" console</code> </p>
+                                <br>
+                                <p>The above command will open geth and enable the RPC interface to allow connections to hudsonjameson.com.</p>
+                                <p>Make sure you have the right address to connect once you open your client and allow cross origin requests for this site. Common ones include "http://localhost:8545" for Geth/Eth, "http://localhost:4000" for Pyeth, and "ipc" for IPC connections.</p> <a href="https://github.com/ethereum/go-ethereum/wiki/Command-Line-Options" target="_blank">For more information on geth command line options click here.</a> </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <h3>The Story</h3>
+                <p>I got the inspiration to make this page because of <a href="https://twitter.com/hudsonjameson/status/676275617722077186" target="_blank">a tweet from Joseph Lubin</a> after I posted about my 1 year wedding anniversary.</p>
+                <br>
+                <h3>Why Is This Important?</h3>
+                <p>I am storing data immutably to the Ethereum blockchain. This is an example of a proof-of-existence application of blockchains that is very important. Blockchains, when properly designed, provide a way to permanently store data with an un-hackable audit trail. On the Ethereum blockchain, users create smart contracts to store and manipulate data. Smart contracts are permanently on the Ethereum blockchain and contain their own storage. Whenever the internal contract storage is changed, the blockchain updates the smart contract data, while still maintaining a history of the previous data. Cool, huh?</p>
+                </script>
+                <button id="viewContractOnChain" class="btn btn-primary" type="button" onclick="getBlockchainURL();">View smart contract on the Ethereum blockchain</button>
+                <br>
+                <br>
+                <h3><a href="" target="_blank">Make Your Own Marriage Contract and Test It!</a></h3> </div>
+            <div class="col-md-7">
+                <div>
+                    <h2>Hudson and Laura Marriage Details</h2>
+                    <br>
+                    <button class="btn btn-success" onclick="checkOnHudsonsMarriage();" type="button">Get Latest Marriage Details from Ethereum Blockchain</button>
+                    <br>
+                    <br>
+                    <h3>Marriage Information</h3>
+                    <table class="table table-striped table-hover" id="eventTable">
+                        <thead>
+                            <tr>
+                                <th>Contract Address</th>
+                                <th>
+                                    <input id="contract" size="40" type="text"> </th>
+                            </tr>
+                            <tr>
+                                <th>ABI</th>
+                                <th>
+                                    <input id="ABI" size="40" type="text"> </th>
+                            </tr>
+                            <tr>
+                                <td>Marriage Status</td>
+                                <td>
+                                    <input id="mStatus" readonly="true" size="15" type="text"> </td>
+                            </tr>
+                            <tr>
+                                <td>Partner 1</td>
+                                <td>
+                                    <input id="partner1" readonly="true" size="25" type="text"> </td>
+                            </tr>
+                            <tr>
+                                <td>Partner 2</td>
+                                <td>
+                                    <input id="partner2" readonly="true" size="25" type="text"> </td>
+                            </tr>
+                            <tr>
+                                <td>Marriage Date</td>
+                                <td>
+                                    <input id="mDate" readonly="true" size="25" type="text"> </td>
+                            </tr>
+                            <tr>
+                                <td>IPFS Hash to Marriage Image</td>
+                                <td>
+                                    <p id="mImage"></p>
+                            </tr>
+                            <tr>
+                                <td>IPFS Hash to Marriage Proof</td>
+                                <td>
+                                    <p id="mProof"></p>
+                            </tr>
+                        </thead>
+                        <tbody> </tbody>
+                    </table>
+                    <br>
+                    <h3>Major Events</h3>
+                    <table class="table table-striped table-hover" id="aTable">
+                        <thead>
+                            <tr>
+                                <th>Event Name</th>
+                                <th>Event Time</th>
+                                <th>Description</th>
+                                <th>Time Submitted</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- My JS -->
+    <script src="ethjs/ethFunctions.js">
+    </script>
+    <script>
+    document.getElementById("contract").value = contractAddress;
+    document.getElementById("ABI").value = JSON.stringify(contractABI);
+    </script>
+</body>
+
+</html>

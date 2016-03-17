@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Create Your Own Marriage Contract on Ethereum</title>
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button class="navbar-toggle collapsed" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <a class="navbar-brand" href="http://hudsonjameson.com/ethereummarriage/">Marriage on              Ethereum</a> </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li> <a href="https://www.gitbook.com/book/souptacular/ethereum-tutorials-and-tips-by-hudson/details" target="_blank">                      My Ethereum Tutorials and Resources GitBook</a> </li>
+                    <li> <a href="http://www.hudsonjameson.com" target="_blank">HudsonJameson.com</a> </li>
+                    <li class="active" > <a href="https://github.com/Souptacular/smart_contracts/blob/master/marriage.sol" target="_blank">                      Source<span class="sr-only">(current)</span></a> </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-1">
+		</div>
+		<div class="col-md-10">
+			<div class="row">
+				<div class="col-md-12">
+					<h1>
+						Create Your Own Marriage Contract
+					<h3>
+						Prerequisites:
+					</h3>
+					<p>
+						<ul>
+						  <li>geth</li>
+						  <li>An Ethereum account with some ether in it</li>
+						  <li>Google Chrome</li>
+						</ul>
+					</p>
+					</h1>
+					<hr>
+					<h2>
+						Navigate to <a href="http://chriseth.github.io/browser-solidity/" target="_blank">this website</a>.
+					</h2>
+					<p>
+						The Solidity Online Realtime Compiler is a powerful tool that allows you to design, test, and deploy Ethereum contracts.
+					</p>
+					<p>
+						<a class="btn" href="http://www.ethdocs.org" target="_blank">New to Ethereum? Try visiting this guide before moving forward.</a>
+					</p><img alt="Solidity Realtime Compiler Website" src="img/browser-solidity-1.png" style="border:1px solid black">
+					<hr>
+					<h2>
+						Open geth
+					</h2>
+					<p>
+						The online Solidity compiler has the ability to connect to running instances of your geth node through RPC and IPC. Below are the flags you need to add when you start geth in order to allow your node to communicate with the website.<br>
+						<code>geth --unlock 0 --rpc --rpcport "8545" --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --rpccorsdomain "http://chriseth.github.io" console</code>
+						<br>
+						If you'd like to have access to the geth console in a second command prompt window, open another console window and enter <code>geth attach</code> to attach that console window to your geth instance.
+						<br>
+						You may want to make a script so you can easily open your geth console. I accomplished this on my Windows system by creating a file called <code>geth_unlocked.cmd</code> which opens my geth console.
+					</p><br>
+					<img alt="geth Script" src="img/geth-unlock_notepad.png" style="border:1px solid black">
+					<hr>
+					<h2>
+						Connect to Your Node Through RPC/IPC
+					</h2>
+					<p>
+						Back at the Solidity Compiler website, we want to connect to our geth node over either RPC or IPC. Most people will want to connect over RPC. Click the Cube icon. Change the address and port in the "Web3 provider input" box to match the flags you set to launch geth. If you used the previous step to launch geth your address and port should be <code>http://localhost:8545</code>.
+						<br><br>
+						<img alt="Online Solidity" src="img/browser-solidity-2.png" style="border:1px solid black"><br><br><br>
+						A dialog box may pop up warning you if you want to connect. Click "OK".<br><br>
+						<img alt="Warning" src="img/warning.png" style="border:1px solid black">
+					</p><br>
+					<hr>
+					<h2>
+						Create Your Contract and Call Your Contract Functions
+					</h2>
+					<p>
+						Click the red "Create" button on below your node connection settings. Your transaction will soon be mined (normally within 30 seconds) and your public variables (in blue) and your functions (in red) will appear below. Add information to the function calls to create your marriage on the blockchain. Note that Ethereum doesn't always understand the difference between a string and a hex value, so this online compiler differentiates the two by using quotes. If you want to submit a string, surround that string in quotes. For the time values you will need to use a converter site <a href="http://www.epochconverter.com/" target="_blank">like this</a> to convert your date and time entires to Unix epoch time. Once you have entered the data you want to send to Ethereum, click on the red function buttons that you have data entered for. This will create and push a transaction to the Ethereum network.
+					</p><br>
+					<img alt="Online Solidity" src="img/browser-solidity-5.png" style="border:1px solid black"><br><br>
+					<hr>
+					<h2>
+						Explore Your Raw Data
+					</h2>
+					<p>
+						Once the transactions are mined, a transaction receipt will appear under the function. You can also click on the blue variable buttons to view the state variables that have been changed in the contract (many of them will come back as hexidecimal and will need to be converted to ASCII values to view properly).
+						<br><br>
+						<img alt="Online Solidity" src="img/browser-solidity-6.png" style="border:1px solid black"><br><br>
+					</p>
+						If you scroll further down, you will see the events that were produced because of the functions you called.
+						<br><br>
+						<img alt="Events" src="img/browser-solidity-7.png" style="border:1px solid black"><br><br>
+						<br>
+					<p>
+						Look at your geth window. You can see that right after you submitted your transactions they were added into blocks and mined.
+					</p>
+					<br>
+						<img alt="geth Transactions" src="img/geth-tx.png" style="border:1px solid black"><br><br>
+					<hr>
+					<h2>
+						View Your Contract Data on My Site and A Blockchain Explorer
+					</h2>
+					<p>
+						Navigate back to the online Solidity compiler and copy the contract address and all of the text in the "Interface" box to a text editor. The contract address is a unique address that identifies your contract on the blockchain based on 3 things: the contract code, your Ethereum address, and the number of times you have sent transactions from your Ethereum address (a.k.a the nonce). The text in the interface box is called the ABI - Application Binary Interface. It is used to map your variables and functions you want to call in your web app back to the contract. It is the interface layer between your high level Dapp and the low level Ethereum blockchain code.
+						<br>
+						Navigate to <a href="http://www.hudsonjameson.com/ethereummarriage/" target="_blank">my Ethereum marriage website</a>. In the box marked "Contract Address" enter your contract address. Enter your ABI information in the ABI box. After making sure you are connected to geth through the website, click the green button to see your marriage information you added to the blockchain. If you'd like to see more details about your contract on the blockchain, click on the dark blue button that says "View smart contract on the Ethereum blockchain".
+					</p><br>
+					<img alt="Marriage Site" src="img/marriage_page.png" style="border:1px solid black"><br><br>
+					<p>
+						<a class="btn" href="http://www.ethdocs.org" target="_blank">Want to learn more about Ethereum? Check out the documentation! »</a>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-1">
+		</div>
+	</div>
+</div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+  </body>
+</html>
